@@ -14,9 +14,15 @@ export default function StarRating({
   maxRating = 10,
   color = "#fcc419",
   size = 24,
+  onSetRating,
 }) {
   const [rating, setRating] = useState(0);
   const [tempRating, setTempRating] = useState(0);
+
+  function handleRating(rating) {
+    setRating(rating);
+    onSetRating(rating);
+  }
 
   const textStyle = {
     lineHeight: "1",
@@ -40,7 +46,7 @@ export default function StarRating({
             key={i}
             role="button"
             style={starStyle}
-            onClick={() => setRating(i + 1)}
+            onClick={() => handleRating(i + 1)}
             onMouseEnter={() => setTempRating(i + 1)}
             onMouseLeave={() => setTempRating(0)}
           >
