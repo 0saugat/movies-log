@@ -3,8 +3,16 @@ export default function Search({ query, setQuery }) {
   const inputEl = useRef(null);
 
   useEffect(() => {
-    inputEl.current.focus();
-  }, []);
+    const focusSearch = (e) => {
+      if (document.activeElement === inputEl.current) return;
+      if (e.code === "Enter") {
+        inputEl.current.focus();
+        setQuery("");
+      }
+    };
+    document.addEventListener("keydown", focusSearch);
+    return () => document.addEventListener("keydown", focusSearch);
+  }, [setQuery]);
 
   return (
     <input
